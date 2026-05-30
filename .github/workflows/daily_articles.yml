@@ -1,0 +1,40 @@
+name: Daily SEO Article Generator
+
+on:
+  schedule:
+    # 每天北京时间早上 8:00 执行 (UTC 时间 0:00)
+    - cron: '0 0 * * *'
+  workflow_dispatch: # 允许在 GitHub 网页上手动点击运行
+
+jobs:
+  generate-and-publish:
+    runs-on: ubuntu-latest
+    # 赋予机器人写入仓库的权限，否则无法推送
+    permissions:
+      contents: write
+
+    steps:
+      - name: 检出代码 (Checkout)
+        uses: actions/checkout@v3
+
+      - name: 设置 Node.js 环境
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: 运行自动写文章脚本
+        run: node auto_daily_articles.js
+
+      - name: 提交并推送到 GitHub
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          
+          # 添加所有新生成的文件和修改过的主页
+          git add .
+          
+          # 如果有变化则提交，如果没有变化则忽略
+          git commit -m "Auto-generate daily SEO articles" || echo "No changes to commit"
+          
+          # 推送到当前分支
+          git push
