@@ -51,3 +51,4 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./ready_to_upload/
           server-dir: /public_html/fanfanqiang.net/
+          timeout: 300000
