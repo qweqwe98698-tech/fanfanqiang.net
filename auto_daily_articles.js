@@ -166,14 +166,11 @@ function buildDailyArticles(count = 2) {
                 </a>`;
     }
 
-    const insertIndex = indexHtml.indexOf('</a>\n            </div>\n\n            <div class="essential-reading">');
-    if (insertIndex !== -1) {
-        const targetIdx = indexHtml.lastIndexOf('</a>', insertIndex);
-        if (targetIdx !== -1) {
-            indexHtml = indexHtml.substring(0, targetIdx + 4) + '\n' + cardsHtml + indexHtml.substring(targetIdx + 4);
-            fs.writeFileSync('index.html', indexHtml);
-            console.log('Successfully updated index.html with new daily articles.');
-        }
+    const regex = /(<\/a>\s*)(<\/div>\s*<div class="essential-reading">)/;
+    if (regex.test(indexHtml)) {
+        indexHtml = indexHtml.replace(regex, `$1${cardsHtml}\n            $2`);
+        fs.writeFileSync('index.html', indexHtml);
+        console.log('Successfully updated index.html with new daily articles.');
     } else {
         console.log('Could not find insert index in index.html');
     }
