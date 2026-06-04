@@ -24,7 +24,7 @@ jobs:
 
       - name: 运行自动写文章脚本
         env:
-          DEEPSEEK_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         run: node auto_daily_articles.js
 
       - name: 提交并推送到 GitHub
@@ -53,4 +53,10 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./ready_to_upload/
           server-dir: /public_html/fanfanqiang.net/
-          timeout: 300000
+          # --- 💡 尝试开启 FTPS 加密 ---
+          # 很多服务器（如 Hostinger, cPanel 等）默认拒绝普通 FTP，必须使用加密。
+          protocol: ftps
+          # loose 选项允许自签名的 SSL 证书
+          security: loose
+          timeout: 600000
+          log-level: verbose
