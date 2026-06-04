@@ -959,3 +959,80 @@ a {
     left: 4px;
     color: #999;
 }
+
+/* Floating TOC for Airports */
+.floating-toc {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    width: 250px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid var(--border-color, #E6DCC3);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    padding: 15px;
+    z-index: 100;
+    display: none;
+}
+
+@media (min-width: 1200px) {
+    .floating-toc {
+        display: block;
+    }
+    .airports.section-padding .container {
+        padding-right: 280px;
+        position: relative;
+    }
+}
+
+.floating-toc-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: var(--main-color, #7BA05B);
+    border-bottom: 1px solid var(--border-color, #eaeaea);
+    padding-bottom: 8px;
+}
+
+.floating-toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.floating-toc li {
+    margin-bottom: 6px;
+}
+
+.floating-toc a {
+    text-decoration: none;
+    color: var(--text-light, #6C6C5E);
+    font-size: 0.9rem;
+    display: block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.floating-toc a:hover, .floating-toc a.active {
+    background: var(--bg-blueish, #f0f8f0);
+    color: var(--main-color, #7BA05B);
+    font-weight: bold;
+}
+
+/* Custom Scrollbar for TOC */
+.floating-toc::-webkit-scrollbar {
+    width: 4px;
+}
+.floating-toc::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.floating-toc::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+.floating-toc::-webkit-scrollbar-thumb:hover {
+    background: #aaa;
+}

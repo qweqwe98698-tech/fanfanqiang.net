@@ -1358,5 +1358,80 @@
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="script.js"></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"ac9a57d23c484073aae2c9cd2638768a","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    if (!document.querySelector('.airports-grid')) return;
+
+    const tocContainer = document.createElement('div');
+    tocContainer.className = 'floating-toc';
+    tocContainer.innerHTML = '<div class="floating-toc-title">📍 机场目录</div><ul id="floating-toc-list"></ul>';
+    document.body.appendChild(tocContainer);
+
+    const tocList = document.getElementById('floating-toc-list');
+    const cards = document.querySelectorAll('.airport-card');
+
+    const observerOptions = {
+        root: null,
+        rootMargin: '-100px 0px -40% 0px',
+        threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.id;
+                document.querySelectorAll('#floating-toc-list a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                const activeLink = document.querySelector(`#floating-toc-list a[href="#${id}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                    const toc = document.querySelector('.floating-toc');
+                    const linkTop = activeLink.offsetTop;
+                    if (linkTop < toc.scrollTop || linkTop > toc.scrollTop + toc.clientHeight - 50) {
+                        toc.scrollTo({ top: linkTop - toc.clientHeight / 2, behavior: 'smooth' });
+                    }
+                }
+            }
+        });
+    }, observerOptions);
+
+    cards.forEach((card, index) => {
+        const nameEl = card.querySelector('.airport-name');
+        if (!nameEl) return;
+        
+        const clone = nameEl.cloneNode(true);
+        const spans = clone.querySelectorAll('span');
+        spans.forEach(s => s.remove());
+        const name = clone.textContent.trim().replace(/^\d+\.\s*/, '');
+
+        const cardId = 'airport-card-' + index;
+        card.id = cardId;
+
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = '#' + cardId;
+        a.textContent = name;
+        
+        a.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = document.getElementById(cardId);
+            const headerOffset = 80;
+            const elementPosition = target.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        });
+
+        li.appendChild(a);
+        tocList.appendChild(li);
+
+        observer.observe(card);
+    });
+});
+</script>
 </body>
 </html>
