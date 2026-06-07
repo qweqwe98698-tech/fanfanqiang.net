@@ -1,4 +1,22 @@
 const fs = require('fs');
+
+// --- 防止重复生成逻辑 ---
+{
+    const _fs = require('fs');
+    const _path = require('path');
+    const _today = new Date().toISOString().split('T')[0];
+    const _marker = _path.join(__dirname, '.daily_run_date');
+    if (_fs.existsSync(_marker)) {
+        const _last = _fs.readFileSync(_marker, 'utf8');
+        if (_last === _today) {
+            console.log("检测到今日已生成过文章，跳过生成以防重复！");
+            process.exit(0);
+        }
+    }
+    _fs.writeFileSync(_marker, _today, 'utf8');
+}
+// ------------------------
+
 const path = require('path');
 
 const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY;
@@ -12,12 +30,25 @@ if (!DEEPSEEK_API_KEY) {
 // 强化内部链接 (向主推文章倒流)
 // ==========================================
 const internalLinkCallToAction = `
-    <div style="background-color: #f8f9fa; border-left: 5px solid #27ae60; padding: 20px; margin: 30px 0; border-radius: 4px;">
-        <h4 style="margin-top: 0; color: #2c3e50;">🚀 懒人必看：2026年终极精选</h4>
-        <p style="margin-bottom: 0;">如果您不想花时间逐一测试，可以直接查看我们耗时 3 个月实测整理的排行榜，里面包含了目前全网最稳定、性价比最高的节点推荐：
-        <br><br>
-        👉 <a href="article-2026-airport-recommendation-guide.html" style="font-weight: bold; color: #d35400; text-decoration: underline;">点击阅读：《2026年最新稳定高性价比机场推荐指南》</a>
+    <div style="background-color: #ffffff; border: 2px solid #7BA05B; padding: 25px; margin: 40px 0; border-radius: 16px; box-shadow: 0 10px 25px rgba(123, 160, 91, 0.15); text-align: center; position: relative; overflow: hidden;">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, #7BA05B, #A3C9E2);"></div>
+        <span style="background-color: #FFEDD5; color: #C2410C; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; margin-bottom: 15px; display: inline-block;">🔥 2026 站长极力推荐</span>
+        <h4 style="margin: 10px 0 15px; color: #3A3A2A; font-size: 1.4rem; font-weight: 800;">不想折腾？直接看 2026 最新稳定机场榜单</h4>
+        <p style="margin-bottom: 15px; color: #6C6C5E; font-size: 1rem; line-height: 1.6;">
+            我们耗时 3 个月，实测了市面上 50+ 款主流节点服务，最终整理出这份 <strong>全网最稳、支持 ChatGPT / Netflix 解锁、晚高峰 4K 零卡顿</strong> 的高性价比榜单。
         </p>
+        
+        <div class="promo-box" data-code="FANFAN2026">
+            <div class="promo-box-left" style="text-align: left;">
+                <span class="promo-label">🎁 专属全场 8 折优惠码：</span>
+                <span class="promo-code-text">FANFAN2026</span>
+            </div>
+            <div class="promo-copy-btn">一键复制</div>
+        </div>
+
+        <a href="airports.html" style="display: inline-block; background-color: #7BA05B; color: #fff; padding: 14px 35px; font-size: 1.1rem; font-weight: bold; text-decoration: none; border-radius: 50px; box-shadow: 0 6px 15px rgba(123, 160, 91, 0.3); transition: all 0.3s ease; margin-top: 10px;">
+            查看完整 11 款精选机场推荐 ✈️
+        </a>
     </div>
 `;
 
@@ -75,6 +106,7 @@ async function buildDailyArticles(count = 2) {
     
     let indexHtml = fs.readFileSync('index.html', 'utf-8');
     let cardsHtml = "";
+    let generatedUrls = [];
 
     for (let i = 1; i <= count; i++) {
         console.log(`Generating article ${i} using DeepSeek API...`);
@@ -96,11 +128,28 @@ async function buildDailyArticles(count = 2) {
         newTemplate = newTemplate.replace(/<p class="hero-subtitle"([^>]*)>.*?<\/p>/, `<p class="hero-subtitle"$1>${shortDesc}</p>`);
         newTemplate = newTemplate.replace(/<meta name="description" content=".*?">/, `<meta name="description" content="${shortDesc}">`);
         
-        const finalContent = `<div class="article-body">\n${article.content}\n${internalLinkCallToAction}\n</div>`;
+        // 自动注入内链矩阵
+        const internalLinks = [
+            { keyword: 'Clash', url: 'article-client-tutorials.html' },
+            { keyword: 'Shadowrocket', url: 'article-client-tutorials.html' },
+            { keyword: '机场推荐', url: 'airports.html' },
+            { keyword: '机场节点', url: 'article-how-to-choose-airport-node.html' },
+            { keyword: 'VPN', url: 'article-vpn-knowledge.html' }
+        ];
+        
+        let linkedContent = article.content;
+        for (const link of internalLinks) {
+            // 仅替换首次出现的关键词，避免过度优化
+            const regex = new RegExp(`(?<!<a[^>]*>)(${link.keyword})(?![^<]*</a>)`, 'i');
+            linkedContent = linkedContent.replace(regex, `<a href="${link.url}" class="text-link" target="_blank">$1</a>`);
+        }
+        
+        const finalContent = `<div class="article-body">\n${linkedContent}\n${internalLinkCallToAction}\n</div>`;
         newTemplate = newTemplate.replace(/<div class="article-body">[\s\S]*?<\/div>\s*<\/div>/, finalContent + '\n        </div>');
         
         fs.writeFileSync(fileName, newTemplate);
         console.log(`Generated: ${fileName}`);
+        generatedUrls.push(fileName);
 
         cardsHtml += `
                 <a href="${fileName}" class="article-card">
@@ -120,11 +169,66 @@ async function buildDailyArticles(count = 2) {
         const regex = /(<\/a>\s*)(<\/div>\s*<div class="essential-reading">)/;
         if (regex.test(indexHtml)) {
             indexHtml = indexHtml.replace(regex, `$1${cardsHtml}\n            $2`);
+            
+            // Limit daily articles to maximum 8
+            const dailyArticleRegex = /<a href="article-auto-daily-[^>]+>[\s\S]*?<span class="tag[^>]+>每日更新<\/span>[\s\S]*?<\/a>\s*/g;
+            const matches = indexHtml.match(dailyArticleRegex);
+            if (matches && matches.length > 8) {
+                const toRemove = matches.slice(0, matches.length - 8);
+                for (const item of toRemove) {
+                    indexHtml = indexHtml.replace(item, '');
+                }
+                console.log(`Trimmed ${toRemove.length} old daily articles from index.html`);
+            }
+
             fs.writeFileSync('index.html', indexHtml);
             console.log('Successfully updated index.html with new daily articles.');
         } else {
             console.log('Could not find insert index in index.html');
         }
+    }
+
+    // 自动更新 Sitemap
+    try {
+        require('child_process').execSync('node generate_sitemap.js', {stdio: 'inherit'});
+        console.log('✅ Sitemap updated automatically.');
+    } catch (e) {
+        console.error('❌ Failed to update sitemap:', e.message);
+    }
+
+    // 自动推送 IndexNow API 秒收录
+    if (generatedUrls.length > 0) {
+        await pingIndexNow(generatedUrls);
+    }
+}
+
+async function pingIndexNow(urls) {
+    const host = 'fanfanqiang.net';
+    const key = 'a846c243a41a4a408e0ab85489f64483'; 
+    const endpoint = 'https://api.indexnow.org/indexnow';
+    
+    const keyFile = path.join(__dirname, `${key}.txt`);
+    if (!fs.existsSync(keyFile)) {
+        fs.writeFileSync(keyFile, key);
+    }
+
+    const payload = {
+        host: host,
+        key: key,
+        keyLocation: `https://${host}/${key}.txt`,
+        urlList: urls.map(u => `https://${host}/${u}`)
+    };
+
+    try {
+        console.log(`Pinging IndexNow with ${urls.length} new URLs...`);
+        const res = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        console.log('✅ IndexNow Ping Status:', res.status);
+    } catch (e) {
+        console.error('❌ IndexNow Ping Failed:', e.message);
     }
 }
 

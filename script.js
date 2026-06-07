@@ -46,3 +46,58 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+
+// Inject Mobile Sticky CTA
+document.addEventListener('DOMContentLoaded', () => {
+    // Only inject on mobile
+    if (window.innerWidth <= 768) {
+        const stickyCtaHtml = `
+            <div class="mobile-sticky-cta" id="mobileStickyCta">
+                <div class="sticky-cta-text">
+                    <span class="sticky-cta-title">🏆 2026 稳定推荐：晚高峰秒开4K</span>
+                    <span class="sticky-cta-subtitle">含 ChatGPT / Netflix 解锁专属节点</span>
+                </div>
+                <a href="airports.html" class="sticky-cta-btn">查看排名 ✈️</a>
+            </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', stickyCtaHtml);
+
+        const stickyCta = document.getElementById('mobileStickyCta');
+        
+        // Show after scrolling 300px
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                stickyCta.classList.add('show');
+            } else {
+                stickyCta.classList.remove('show');
+            }
+        });
+    }
+});
+
+// One-Click Copy functionality
+document.addEventListener('DOMContentLoaded', () => {
+    // Create toast element globally
+    const toast = document.createElement('div');
+    toast.className = 'toast-notification';
+    toast.innerHTML = '✅ 优惠码复制成功！去官网粘贴吧';
+    document.body.appendChild(toast);
+
+    // Event delegation for dynamically added promo boxes
+    document.body.addEventListener('click', (e) => {
+        const promoBox = e.target.closest('.promo-box');
+        if (!promoBox) return;
+
+        const code = promoBox.getAttribute('data-code');
+        if (!code) return;
+
+        navigator.clipboard.writeText(code).then(() => {
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }).catch(err => {
+            console.error('Copy failed', err);
+        });
+    });
+});
