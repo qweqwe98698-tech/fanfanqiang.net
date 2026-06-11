@@ -2,7 +2,9 @@ const CACHE_NAME = 'fanfanqiang-cache-v1';
 const urlsToCache = [
   '/index.html',
   '/style.css',
-  '/script.js'
+  '/script.js',
+  '/nav.html',
+  '/apple-id-shared.html'
 ];
 
 self.addEventListener('install', event => {

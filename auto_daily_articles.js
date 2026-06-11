@@ -188,6 +188,30 @@ async function buildDailyArticles(count = 2) {
         }
     }
 
+    // 全站 HTML 性能与 SEO 优化 (Lazy Loading, Nofollow)
+    try {
+        require('child_process').execSync('node optimize_seo_html.js', {stdio: 'inherit'});
+        console.log('✅ HTML SEO optimizations applied automatically.');
+    } catch (e) {
+        console.error('❌ Failed to optimize HTML SEO:', e.message);
+    }
+
+    // 自动更新 Apple ID
+    try {
+        require('child_process').execSync('node update_apple_ids.js', {stdio: 'inherit'});
+        console.log('✅ Apple IDs updated automatically.');
+    } catch (e) {
+        console.error('❌ Failed to update Apple IDs:', e.message);
+    }
+
+    // 自动构建 SEO 蜘蛛网内链
+    try {
+        require('child_process').execSync('node build_spider_web.js', {stdio: 'inherit'});
+        console.log('✅ SEO Spider Web updated automatically.');
+    } catch (e) {
+        console.error('❌ Failed to update spider web:', e.message);
+    }
+
     // 自动更新 Sitemap
     try {
         require('child_process').execSync('node generate_sitemap.js', {stdio: 'inherit'});
