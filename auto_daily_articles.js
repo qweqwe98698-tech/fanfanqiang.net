@@ -55,10 +55,13 @@ const internalLinkCallToAction = `
 async function callDeepSeekAPI() {
     const prompt = `你是一个专业的翻墙机场、VPN、SEO博客作者。请用简体中文写一篇关于2026年翻墙机场推荐、科学上网、或者是流媒体解锁（Netflix/ChatGPT）的干货文章。
 要求：
-1. 返回严格的 JSON 格式，必须包含两个字段："title" (文章标题，带吸引力) 和 "content" (文章的HTML正文内容)。
-2. "content" 必须使用 HTML 标签（如 <h3>, <p>, <ul> 等）排版，**只包含内容部分**，不要包含 <html> 或 <body> 等外层标签。
-3. 文章长度控制在 800 - 1500 字，内容要专业、客观，多谈干货（比如专线区别、防封号技巧、IP纯净度等）。
-4. 不要返回 markdown 的代码块标记，纯 JSON 字符串即可。`;
+1. 优先在【AI工具使用排障】、【流媒体解锁】、【Clash/Sing-box客户端配置】、【专线与直连技术科普】中随机选择一个主题深入撰写。
+2. 行文风格要专业、务实，多穿插具体的技术名词（如 GeoIP 规则分流、住宅 IP、晚高峰 QoS 限制、BGP 中转），避免假大空的话。
+3. 在文章正文中自然地融入与主题相关的关键词（如：2026稳定机场、科学上网梯子、VPN推荐、ChatGPT节点）。
+4. 返回严格的 JSON 格式，必须包含两个字段："title" (文章标题，带吸引力) 和 "content" (文章的HTML正文内容)。
+5. "content" 必须使用 HTML 标签（如 <h3>, <p>, <ul> 等）排版，**只包含内容部分**，不要包含 <html> 或 <body> 等外层标签。
+6. 文章长度控制在 800 - 1500 字，内容要专业、客观。
+7. 不要返回 markdown 的代码块标记，纯 JSON 字符串即可。`;
 
     let retries = 3;
     while (retries > 0) {
