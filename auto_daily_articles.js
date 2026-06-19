@@ -62,15 +62,20 @@ const internalLinkCallToAction = `
 `;
 
 async function callDeepSeekAPI() {
-    const prompt = `你是一个专业的翻墙机场、VPN、SEO博客作者。请用简体中文写一篇关于2026年翻墙机场推荐、科学上网、或者是流媒体解锁（Netflix/ChatGPT）的干货文章。
+    const prompt = `你是一个专业的翻墙机场、VPN、SEO博客作者。请用简体中文写一篇关于2026年翻墙机场推荐、科学上网、或者是流媒体解锁（Netflix/ChatGPT）的硬核干货文章。
 要求：
-1. 优先在【AI工具使用排障】、【流媒体解锁】、【Clash/Sing-box客户端配置】、【专线与直连技术科普】中随机选择一个主题深入撰写。
-2. 行文风格要专业、务实，多穿插具体的技术名词（如 GeoIP 规则分流、住宅 IP、晚高峰 QoS 限制、BGP 中转），避免假大空的话。
-3. 在文章正文中自然地融入与主题相关的关键词（如：2026稳定机场、科学上网梯子、VPN推荐、ChatGPT节点）。
-4. 返回严格的 JSON 格式，必须包含两个字段："title" (文章标题，带吸引力) 和 "content" (文章的HTML正文内容)。
-5. "content" 必须使用 HTML 标签（如 <h3>, <p>, <ul> 等）排版，**只包含内容部分**，不要包含 <html> 或 <body> 等外层标签。
-6. 文章长度控制在 800 - 1500 字，内容要专业、客观。
-7. 不要返回 markdown 的代码块标记，纯 JSON 字符串即可。`;
+1. 优先在【AI工具使用排障与洁净IP选择】、【流媒体解锁与原生IP剖析】、【Clash/Sing-box客户端高级分流配置】、【IPLC专线与直连/公网中转技术深度科普】中随机选择一个主题进行深入撰写，要求切入点具体、具有实操指导意义。
+2. 篇幅与深度：文章长度控制在 1800 - 3000 字之间。要求提供深度的技术剖析和详尽的步骤说明，严禁假大空的套话，多穿插具体的技术名词（如 GeoIP 规则分流、住宅 IP、晚高峰 QoS 限制、BGP 中转、DNS 泄露防护、TUN 模式等）。
+3. 结构排版要求（非常重要）：
+   - 必须包含至少一个【对比表格】（使用 <table> 标签，带简洁美观的内联样式，例如 <table style="width:100%; border-collapse:collapse; margin:20px 0; border:1px solid #ddd;">，<thead>, <tbody>, <th>, <td> 均需设置 padding 和边框，th 应有淡色背景如 #f2f2f2），用于对比不同协议、客户端、线路或方案。
+   - 必须包含至少一个【高亮提示框/防坑警告框】（使用 <div style="background-color: #f6f8fa; border-left: 4px solid #7BA05B; padding: 15px; margin: 20px 0; border-radius: 4px;"> 或红色边框的警告框），用于给读者提供核心避坑建议或高级技巧。
+   - 必须包含一个【详细的步骤指南】（使用 <ol> 或 <ul> 搭配 <li>，必要时可多层嵌套），有清晰的 1, 2, 3 步骤指导。
+   - 标题层级合理，使用 <h3> 和 <h4> 标签。
+4. 关键词融入：在文章正文中自然地融入与主题相关的关键词（如：2026稳定机场、科学上网梯子、VPN推荐、ChatGPT节点、机场推荐）。
+5. 格式要求：
+   - 返回严格的 JSON 格式，必须包含且仅包含两个字段："title" (文章标题，带吸引力) 和 "content" (文章的HTML正文内容)。
+   - "content" 必须是编写好的 HTML 代码（只包含内容部分，不要包含 <html> 或 <body> 等外层标签）。
+   - 不要返回 markdown 的代码块标记，纯 JSON 字符串即可。`;
 
     let retries = 3;
     while (retries > 0) {
