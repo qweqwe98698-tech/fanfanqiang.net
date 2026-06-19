@@ -4,12 +4,21 @@ const fs = require('fs');
 {
     const _fs = require('fs');
     const _path = require('path');
-    const _today = new Date().toISOString().split('T')[0];
+    
+    // 获取北京时间 (UTC+8) 的日期 YYYY-MM-DD
+    const d = new Date();
+    const utc8Time = new Date(d.getTime() + 8 * 60 * 60 * 1000);
+    const _today = utc8Time.toISOString().split('T')[0];
+    
     const _marker = _path.join(__dirname, '.daily_run_date');
-    if (_fs.existsSync(_marker)) {
+    const forceRun = process.env.FORCE_RUN === 'true';
+
+    if (forceRun) {
+        console.log("检测到强制运行环境变量 FORCE_RUN=true，跳过重复检查并继续生成！");
+    } else if (_fs.existsSync(_marker)) {
         const _last = _fs.readFileSync(_marker, 'utf8');
         if (_last === _today) {
-            console.log("检测到今日已生成过文章，跳过生成以防重复！");
+            console.log(`检测到北京时间今日 (${_today}) 已生成过文章，跳过生成以防重复！`);
             process.exit(0);
         }
     }
@@ -98,7 +107,10 @@ async function callDeepSeekAPI() {
 }
 
 async function buildDailyArticles(count = 2) {
-    const dateStr = new Date().toISOString().split('T')[0];
+    // 获取北京时间 (UTC+8) 的日期 YYYY-MM-DD
+    const d = new Date();
+    const utc8Time = new Date(d.getTime() + 8 * 60 * 60 * 1000);
+    const dateStr = utc8Time.toISOString().split('T')[0];
     
     const templatePath = 'article-vpn-trends-2026.html';
     if (!fs.existsSync(templatePath)) {

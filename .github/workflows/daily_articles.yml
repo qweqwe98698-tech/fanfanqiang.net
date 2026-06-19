@@ -5,6 +5,12 @@ on:
     # 每天北京时间凌晨 1:18 执行 (UTC 时间 17:18)
     - cron: '18 17 * * *'
   workflow_dispatch: # 允许在 GitHub 网页上手动点击运行
+    inputs:
+      force:
+        description: '是否强制运行（忽略重复检查）'
+        required: false
+        default: 'false'
+        type: boolean
 
 jobs:
   generate-and-publish:
@@ -25,6 +31,7 @@ jobs:
       - name: 运行自动写文章脚本
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          FORCE_RUN: ${{ github.event.inputs.force || 'false' }}
         run: node auto_daily_articles.js
 
       - name: 提交并推送到 GitHub

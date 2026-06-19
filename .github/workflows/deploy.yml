@@ -5,6 +5,12 @@ on:
     branches:
       - main
   workflow_dispatch: # 允许在 GitHub 网页上手动点击运行
+    inputs:
+      force:
+        description: '是否强制运行（忽略重复检查）'
+        required: false
+        default: 'false'
+        type: boolean
 
 jobs:
   build-and-deploy:
@@ -24,6 +30,7 @@ jobs:
       - name: 运行自动写文章脚本
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          FORCE_RUN: ${{ github.event.inputs.force || 'false' }}
         run: node auto_daily_articles.js
 
       - name: 全局图片懒加载与外链 Nofollow 优化 (SEO)
