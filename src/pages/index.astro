@@ -377,7 +377,9 @@ const dailyArticles = allArticles
 
                 {dailyArticles.map(article => (
                     <a href={`/${article.id}.html`} class="article-card">
-                        <span class="tag tag-edu" style="background-color: #27ae60; color: white;">每日更新</span>
+                        <span class="tag tag-edu" style="background-color: #27ae60; color: white;">
+                            每日更新 {article.data.pubDate ? `(${new Date(article.data.pubDate).toISOString().split('T')[0]})` : ''}
+                        </span>
                         <h4>{article.data.title}</h4>
                         <p>{article.data.description}</p>
                     </a>
