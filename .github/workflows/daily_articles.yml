@@ -28,29 +28,24 @@ jobs:
         with:
           node-version: '18'
 
+      - name: 安装项目依赖
+        run: npm install
+
       - name: 运行自动写文章脚本
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
-          FORCE_RUN: ${{ github.event.inputs.force || 'false' }}
-        run: node auto_daily_articles.js
+        run: node scripts/generate_daily.js
+
+      - name: 编译 Astro 网站
+        run: npm run build
 
       - name: 提交并推送到 GitHub
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          
-          # 添加所有新生成的文件和修改过的主页
-          git add .
-          
-          # 如果有变化则提交，如果没有变化则忽略
+          git add src/content/articles/
           git commit -m "Auto-generate daily SEO articles" || echo "No changes to commit"
-          
-          # 推送到当前分支
           git push
-
-
-      - name: 准备上传文件
-        run: node prepare_upload.js
 
       - name: 🚀 FTP 自动部署至服务器
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -58,7 +53,7 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./ready_to_upload/
+          local-dir: ./dist/
           server-dir: /public_html/fanfanqiang.net/
           # --- 💡 尝试开启 FTPS 加密 ---
           # 很多服务器（如 Hostinger, cPanel 等）默认拒绝普通 FTP，必须使用加密。

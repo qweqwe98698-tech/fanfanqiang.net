@@ -1,0 +1,123 @@
+---
+const { title, description, keywords } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title || '翻茄笔记 - 2026 稳定高速机场推荐与使用教程 | 专注科学上网科普'}</title>
+    <meta name="description" content={description || '翻茄笔记专注于2026老牌机场推荐、VPN 科普、节点选择、Clash 教程、Shadowrocket 教程、Stash 教程、v2rayN 教程、常见问题解答。'}>
+    <meta name="keywords" content={keywords || '机场推荐, VPN科普, 节点选择, Clash教程, Shadowrocket教程, Stash教程, v2rayN教程'}>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍅</text></svg>">
+    
+    <!-- PWA Support -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#7BA05B">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍅</text></svg>">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+
+    <!-- SEO & Social Meta Tags -->
+    <link rel="canonical" href={Astro.url} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title || '翻茄笔记'} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:site_name" content="翻茄笔记" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title || '翻茄笔记'} />
+    <meta name="twitter:description" content={description} />
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="/" class="logo">
+                <span class="logo-icon">🍅</span>
+                翻茄笔记
+            </a>
+            <nav class="nav-links">
+                <a href="/">首页</a>
+                <a href="/#articles">文章中心</a>
+                <a href="/airports">机场推荐</a>
+                <a href="/article-client-tutorials">使用教程</a>
+                <a href="/article-vpn-knowledge">VPN科普</a>
+                <a href="/apple-id-shared" style="color: #ff9f43; font-weight: bold;">免费ID共享</a>
+                <a href="/nav" style="color: #ff9f43; font-weight: bold;">网址导航</a>
+                <a href="/#faq">常见问题</a>
+                <a href="/#about">关于我们</a>
+            </nav>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <slot />
+
+    <!-- Footer -->
+    <footer id="about" class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="/" class="logo">
+                        <span class="logo-icon">🍅</span> 翻茄笔记
+                    </a>
+                    <p class="footer-desc">专注分享稳定高速节点、VPN 机场科普、以及主流客户端的深度使用教程，致力于提供最优质的科学上网体验指南。</p>
+                </div>
+                <div class="footer-links">
+                    <h4>快速导航</h4>
+                    <ul>
+                        <li><a href="/airports">机场推荐</a></li>
+                        <li><a href="/article-client-tutorials">使用教程</a></li>
+                        <li><a href="/article-vpn-knowledge">VPN 科普</a></li>
+                        <li><a href="/#faq">常见问题</a></li>
+                        <li><a href="/apple-id-shared">免费ID共享</a></li>
+                        <li><a href="/nav">网址导航</a></li>
+                        <li><a href="/#about">关于本站</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>关于我们</h4>
+                    <ul>
+                        <li><a href="https://vpnsgocn.com/" target="_blank" rel="dofollow nofollow noopener">VPN风暴云</a></li>
+                        <li><a href="https://clashvpns.cloud/" target="_blank" rel="dofollow nofollow noopener">柳如烟</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>联系我们</h4>
+                    <p>商务合作或技术交流，请联系：</p>
+                    <a href="mailto:admin@fanfanqiang.net" class="email-link">admin@fanfanqiang.net</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 fanfanqiang.net 翻茄笔记. 让网络像呼吸一样自然。</p>
+                <p class="disclaimer">免责声明：本站内容仅供学习交流与科研之用，请遵守当地法律法规，切勿用于任何非法用途。</p>
+            </div>
+        </div>
+    </footer>
+
+    <script is:inline src="/script.js"></script>
+    <!-- PWA Service Worker Registration -->
+    <script is:inline>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').then(registration => {
+                    console.log('SW registered: ', registration);
+                }).catch(registrationError => {
+                    console.log('SW registration failed: ', registrationError);
+                });
+            });
+        }
+    </script>
+</body>
+</html>

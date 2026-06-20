@@ -1,0 +1,223 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const title = "机场节点使用教程：Clash、Shadowrocket、Stash 等主流客户端配置指南 - 翻茄笔记";
+const description = "翻茄笔记专注于2026老牌机场推荐、VPN 科普、节点选择、Clash 教程、Shadowrocket 教程、Stash 教程、v2rayN 教程、常见问题解答。帮助新手更轻松选择适合自己的网络工具。";
+const keywords = "机场推荐, VPN科普, 节点选择, Clash教程, Shadowrocket教程, Stash教程, v2rayN教程";
+---
+<BaseLayout title={title} description={description} keywords={keywords}>
+<!-- Mini Hero -->
+    <section class="hero" style="padding: 180px 0 80px; text-align: center; background: linear-gradient(180deg, #D4EBF8 0%, var(--bg-color) 100%);">
+        <div class="hero-clouds">
+            <div class="cloud cloud-1"></div>
+            <div class="cloud cloud-2"></div>
+        </div>
+        <div class="container relative" style="z-index: 2;">
+            <h1 class="hero-title" style="margin-bottom:15px;">机场节点使用教程：Clash、Shadowrocket、Stash 等配置指南</h1>
+            <p class="hero-subtitle" style="margin-bottom:0;">主流客户端图文配置指南，一站式解决多平台使用问题</p>
+        </div>
+        <div class="hero-grass"></div>
+    </section>
+    
+    <!-- Airport Recommendations -->
+    
+    <section class="article-page section-padding">
+        <div class="container" style="max-width: 900px; margin: 0 auto; background: #fff; padding: 50px 60px; border-radius: 20px; border: 2px solid var(--border-color); box-shadow: var(--shadow);">
+            <div class="article-body">
+<div class="toc">
+    <div class="toc-title">📖 文章目录</div>
+    <ul>
+        <li><a href="#heading-1">一、使用机场节点前，需要先准备什么？</a></li>
+        <li><a href="#heading-2">二、什么是订阅链接？</a></li>
+        <li><a href="#heading-3">三、Clash Verge Rev 使用教程</a></li>
+        <li><a href="#heading-4">四、Shadowrocket 使用教程</a></li>
+        <li><a href="#heading-5">五、Stash 使用教程</a></li>
+        <li><a href="#heading-6">六、v2rayN 使用教程</a></li>
+        <li><a href="#heading-7">七、Android 机场节点怎么使用？</a></li>
+        <li><a href="#heading-8">八、规则模式、全局模式、直连模式怎么选？</a></li>
+        <li><a href="#heading-9">九、节点应该怎么选？</a></li>
+        <li><a href="#heading-10">十、为什么导入订阅后不能用？</a></li>
+        <li><a href="#heading-11">十一、多平台使用要注意什么？</a></li>
+        <li><a href="#heading-12">十二、新手最容易踩的坑</a></li>
+        <li><a href="#heading-13">十三、总结</a></li>
+    </ul>
+</div>
+
+很多新手第一次购买机场节点、VPN机场 或机场VPN 后，最常见的问题不是节点不好，而是：不知道订阅链接在哪里复制、不知道 Clash 怎么导入订阅、不知道 Shadowrocket 怎么添加节点、不知道规则模式有什么区别。
+
+其实机场节点的使用并不复杂。大多数情况下，只需要完成三个步骤：<strong>复制订阅链接 → 导入客户端 → 选择节点并开启代理。</strong>
+
+本文会围绕 Windows、macOS、Android、iOS 常见客户端，讲清楚 Clash、Shadowrocket、Stash、v2rayN 等主流工具的基础使用方法。
+
+<h2 id="heading-1">一、使用机场节点前，需要先准备什么？</h2>
+<p>在使用机场节点之前，一般需要准备三个东西：</p>
+<ol>
+    <li>购买或开通机场套餐。</li>
+    <li>获取自己的订阅链接。</li>
+    <li>安装适合自己设备的客户端。</li>
+</ol>
+<p>常见客户端包括：</p>
+<ul>
+    <li><strong>Windows：</strong>Clash Verge Rev、v2rayN、NekoRay</li>
+    <li><strong>macOS：</strong>Clash Verge Rev、Stash、ClashX</li>
+    <li><strong>Android：</strong>v2rayNG、Clash Meta、Surfboard、NekoBox</li>
+    <li><strong>iOS：</strong>Shadowrocket、Stash、Quantumult X、Loon</li>
+</ul>
+<p>新手更推荐使用订阅链接，因为可以自动同步节点列表，后续机场更新节点时也能直接更新。</p>
+
+<h2 id="heading-2">二、什么是订阅链接？</h2>
+<p>订阅链接可以理解为你的机场节点配置入口，包含了节点信息、套餐权限等。不同客户端可能需要不同格式的订阅链接，例如 Clash Verge Rev 使用 Clash 订阅，Shadowrocket 使用通用订阅。如果导入失败，很多时候是复制了不匹配的订阅格式。</p>
+
+<h2 id="heading-3">三、Clash Verge Rev 使用教程</h2>
+<p>Clash Verge Rev 是 Windows 和 macOS 用户常用的客户端之一，适合新手使用。</p>
+<ol>
+    <li><strong>下载并安装：</strong>安装完成后打开客户端。</li>
+    <li><strong>复制订阅链接：</strong>进入机场网站后台，复制 Clash 订阅链接。</li>
+    <li><strong>导入订阅：</strong>打开 Clash Verge Rev，进入“订阅”页面，粘贴订阅链接，点击导入或更新。</li>
+    <li><strong>选择节点：</strong>进入“代理”页面，选择一个合适的节点（如香港、日本、新加坡节点）。</li>
+    <li><strong>开启系统代理：</strong>导入节点后，还需要开启系统代理。</li>
+    <li><strong>选择代理模式：</strong>日常建议使用<strong>规则模式</strong>（国内直连，海外走代理）。</li>
+</ol>
+
+<h2 id="heading-4">四、Shadowrocket 使用教程</h2>
+<p>Shadowrocket 是 iOS 用户常见的机场客户端（俗称小火箭）。</p>
+<ol>
+    <li><strong>安装 Shadowrocket：</strong>安装完成后打开应用。</li>
+    <li><strong>复制订阅链接：</strong>进入机场网站后台，复制 Shadowrocket 订阅或通用订阅链接。</li>
+    <li><strong>添加订阅：</strong>点击右上角添加按钮，选择“类型”为 Subscribe，粘贴订阅链接并保存。</li>
+    <li><strong>更新订阅：</strong>保存后点击订阅进行更新，成功后会显示节点列表。</li>
+    <li><strong>连接节点：</strong>选择可用节点，打开连接开关，允许添加 VPN 配置。</li>
+</ol>
+
+<h2 id="heading-5">五、Stash 使用教程</h2>
+<p>Stash 适合需要规则分流和精细配置的 iOS 及 macOS 用户。</p>
+<ol>
+    <li><strong>打开 Stash：</strong>进入配置页面。</li>
+    <li><strong>添加配置文件：</strong>选择从 URL 添加配置，粘贴 Clash 订阅链接。</li>
+    <li><strong>启用配置：</strong>订阅导入成功后，启用该配置。</li>
+    <li><strong>选择代理节点：</strong>进入代理分组选择适合自己的节点。</li>
+    <li><strong>开启连接：</strong>打开代理开关，首次需允许 VPN 权限。</li>
+</ol>
+
+<h2 id="heading-6">六、v2rayN 使用教程</h2>
+<p>v2rayN 是 Windows 用户常用客户端之一。</p>
+<ol>
+    <li><strong>下载并打开 v2rayN：</strong>安装后运行。</li>
+    <li><strong>复制订阅链接：</strong>复制 v2rayN 订阅或通用订阅。</li>
+    <li><strong>添加订阅：</strong>在“订阅分组”或“订阅设置”中添加地址，保存并更新。</li>
+    <li><strong>选择节点：</strong>选择一个延迟较低的节点。</li>
+    <li><strong>开启系统代理：</strong>开启系统自动配置代理或全局代理。</li>
+</ol>
+
+<h2 id="heading-7">七、Android 机场节点怎么使用？</h2>
+<p>常见客户端有 v2rayNG、Clash Meta、Surfboard 等。步骤类似：复制订阅 → 添加订阅 → 更新列表 → 选择节点 → 开启连接。Android 用户要特别注意在系统设置里允许客户端<strong>后台运行</strong>，并关闭省电限制。</p>
+
+<h2 id="heading-8">八、规则模式、全局模式、直连模式怎么选？</h2>
+<ul>
+    <li><strong>规则模式：</strong>最适合日常使用。国内网站直连，海外网站走代理。</li>
+    <li><strong>全局模式：</strong>所有流量都走代理。适合临时测试，但耗流量。</li>
+    <li><strong>直连模式：</strong>全部不走代理。适合关闭机场节点时使用。</li>
+</ul>
+
+<h2 id="heading-9">九、节点应该怎么选？</h2>
+<ul>
+    <li><strong>日常浏览：</strong>香港、日本、新加坡、台湾。延迟较低。</li>
+    <li><strong>ChatGPT / Claude：</strong>美国、日本、新加坡或 AI 专用节点。尽量固定使用稳定节点。</li>
+    <li><strong>YouTube：</strong>低延迟高速节点。</li>
+    <li><strong>Netflix / Disney+：</strong>流媒体节点、原生 IP 解锁节点。</li>
+</ul>
+
+<h2 id="heading-10">十、为什么导入订阅后不能用？</h2>
+<p>可以按这个顺序排查：确认套餐有效 → 重新复制订阅链接 → 更新订阅 → 换一个节点 → 开启系统代理或 VPN 权限 → 切换全局模式测试 → 关闭其他 VPN 插件 → 重启客户端。</p>
+
+<h2 id="heading-11">十一、多平台使用要注意什么？</h2>
+<p>多设备同时在线可能受套餐设备数限制（如只支持 2 台或 5 台）。多设备同时看视频、后台同步会快速消耗流量，建议选择大流量套餐。</p>
+
+<h2 id="heading-12">十二、新手最容易踩的坑</h2>
+<ul>
+    <li>只导入订阅，没有开启代理开关。</li>
+    <li>复制错订阅格式。</li>
+    <li>频繁切换多个国家节点。</li>
+    <li>长期开全局模式消耗流量。</li>
+    <li>同时开多个代理软件造成冲突。</li>
+    <li>不更新订阅导致节点失效。</li>
+</ul>
+
+<h2 id="heading-13">十三、总结</h2>
+<p>对于新手来说，使用机场节点的核心流程其实很简单：<strong>复制订阅链接 → 导入客户端 → 更新订阅 → 选择节点 → 开启代理。</strong>如果你只是日常使用，选择规则模式和低延迟节点即可。真正适合新手的 <strong>机场推荐</strong> 服务，不仅要有稳定的节点，还要有完善的教程支持。</p>
+<div style="margin-top: 50px; text-align: center;"><a href="/airports" class="btn btn-primary">查看 2026 最新机场推荐榜单 ✈️</a>
+    
+    
+    </div>
+
+    </div>
+
+    <div class="spider-web-links" style="margin-top: 50px; padding-top: 30px; border-top: 1px dashed #ccc;">
+        <h3 style="font-size: 1.25rem; margin-bottom: 20px; color: #2c3e50;">🕸️ 全站内容探索 (SEO Spider Web)</h3>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+            <a href="/article-ai-ip-purity-2026" title="AI 时代的机场新标准：IP 洁净度决定 ChatGPT / Claude 机场节点能不能长期稳定" style="display: inline-block; padding: 6px 14px; background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 20px; font-size: 0.9rem; color: #4a5568; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 1px 2px rgba(0,0,0,0.05);" onmouseover="this.style.background='#ebf4ff';this.style.color='#3182ce';this.style.borderColor='#90cdf4';this.style.transform='translateY(-1px)'" onmouseout="this.style.background='#f8f9fa';this.style.color='#4a5568';this.style.borderColor='#e2e8f0';this.style.transform='translateY(0)'">AI 时代的机场新标准：IP 洁净度决定 ChatGPT / Claude 机场节点能不能长期稳定</a>
+            <a href="/article-chatgpt-troubleshooting" title="ChatGPT 打不开或不稳定，可能和节点质量有关" style="display: inline-block; padding: 6px 14px; background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 20px; font-size: 0.9rem; color: #4a5568; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 1px 2px rgba(0,0,0,0.05);" onmouseover="this.style.background='#ebf4ff';this.style.color='#3182ce';this.style.borderColor='#90cdf4';this.style.transform='translateY(-1px)'" onmouseout="this.style.background='#f8f9fa';this.style.color='#4a5568';this.style.borderColor='#e2e8f0';this.style.transform='translateY(0)'">ChatGPT 打不开或不稳定，可能和节点质量有关</a>
+            <a href="/article-auto-daily-2026-06-18-1" title="2026年翻墙机场终极指南：专线、流媒体解锁与防封号技巧" style="display: inline-block; padding: 6px 14px; background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 20px; font-size: 0.9rem; color: #4a5568; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 1px 2px rgba(0,0,0,0.05);" onmouseover="this.style.background='#ebf4ff';this.style.color='#3182ce';this.style.borderColor='#90cdf4';this.style.transform='translateY(-1px)'" onmouseout="this.style.background='#f8f9fa';this.style.color='#4a5568';this.style.borderColor='#e2e8f0';this.style.transform='translateY(0)'">2026年翻墙机场终极指南：专线、流媒体解锁与防封号技巧</a>
+            <a href="/article-auto-daily-2026-06-04-1" title="2026年科学上网终极指南：翻墙机场推荐与流媒体解锁深度解析" style="display: inline-block; padding: 6px 14px; background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 20px; font-size: 0.9rem; color: #4a5568; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 1px 2px rgba(0,0,0,0.05);" onmouseover="this.style.background='#ebf4ff';this.style.color='#3182ce';this.style.borderColor='#90cdf4';this.style.transform='translateY(-1px)'" onmouseout="this.style.background='#f8f9fa';this.style.color='#4a5568';this.style.borderColor='#e2e8f0';this.style.transform='translateY(0)'">2026年科学上网终极指南：翻墙机场推荐与流媒体解锁深度解析</a>
+            <a href="/article-auto-daily-2026-05-31-1" title="独家解析：专线、BGP与公网中转：你的钱花在刀刃上了吗？" style="display: inline-block; padding: 6px 14px; background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 20px; font-size: 0.9rem; color: #4a5568; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 1px 2px rgba(0,0,0,0.05);" onmouseover="this.style.background='#ebf4ff';this.style.color='#3182ce';this.style.borderColor='#90cdf4';this.style.transform='translateY(-1px)'" onmouseout="this.style.background='#f8f9fa';this.style.color='#4a5568';this.style.borderColor='#e2e8f0';this.style.transform='translateY(0)'">独家解析：专线、BGP与公网中转：你的钱花在刀刃上了吗？</a>
+            <a href="/article-vpn-knowledge" title="什么是 VPN？科学上网、魔法VPN、机场节点背后的技术原理" style="display: inline-block; padding: 6px 14px; background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 20px; font-size: 0.9rem; color: #4a5568; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 1px 2px rgba(0,0,0,0.05);" onmouseover="this.style.background='#ebf4ff';this.style.color='#3182ce';this.style.borderColor='#90cdf4';this.style.transform='translateY(-1px)'" onmouseout="this.style.background='#f8f9fa';this.style.color='#4a5568';this.style.borderColor='#e2e8f0';this.style.transform='translateY(0)'">什么是 VPN？科学上网、魔法VPN、机场节点背后的技术原理</a>
+            <a href="/article-multi-platform-guide" title="多平台使用机场节点，有哪些注意事项？" style="display: inline-block; padding: 6px 14px; background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 20px; font-size: 0.9rem; color: #4a5568; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 1px 2px rgba(0,0,0,0.05);" onmouseover="this.style.background='#ebf4ff';this.style.color='#3182ce';this.style.borderColor='#90cdf4';this.style.transform='translateY(-1px)'" onmouseout="this.style.background='#f8f9fa';this.style.color='#4a5568';this.style.borderColor='#e2e8f0';this.style.transform='translateY(0)'">多平台使用机场节点，有哪些注意事项？</a>
+            <a href="/article-airport-protocol-trends-2026" title="2026 机场协议趋势：Hysteria 2 与 TUIC v5 普及后，稳定机场该怎么选？" style="display: inline-block; padding: 6px 14px; background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 20px; font-size: 0.9rem; color: #4a5568; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 1px 2px rgba(0,0,0,0.05);" onmouseover="this.style.background='#ebf4ff';this.style.color='#3182ce';this.style.borderColor='#90cdf4';this.style.transform='translateY(-1px)'" onmouseout="this.style.background='#f8f9fa';this.style.color='#4a5568';this.style.borderColor='#e2e8f0';this.style.transform='translateY(0)'">2026 机场协议趋势：Hysteria 2 与 TUIC v5 普及后，稳定机场该怎么选？</a>
+            <a href="/article-auto-daily-2026-06-08-2" title="2026翻墙机场终极指南：如何挑选稳定高速且解锁流媒体的科学上网方案" style="display: inline-block; padding: 6px 14px; background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 20px; font-size: 0.9rem; color: #4a5568; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 1px 2px rgba(0,0,0,0.05);" onmouseover="this.style.background='#ebf4ff';this.style.color='#3182ce';this.style.borderColor='#90cdf4';this.style.transform='translateY(-1px)'" onmouseout="this.style.background='#f8f9fa';this.style.color='#4a5568';this.style.borderColor='#e2e8f0';this.style.transform='translateY(0)'">2026翻墙机场终极指南：如何挑选稳定高速且解锁流媒体的科学上网方案</a>
+            <a href="/article-evening-speedtest-2026" title="晚高峰测速图大比拼：快连 vs IEPL/IPLC 真专线机场，谁才是真稳定？" style="display: inline-block; padding: 6px 14px; background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 20px; font-size: 0.9rem; color: #4a5568; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 1px 2px rgba(0,0,0,0.05);" onmouseover="this.style.background='#ebf4ff';this.style.color='#3182ce';this.style.borderColor='#90cdf4';this.style.transform='translateY(-1px)'" onmouseout="this.style.background='#f8f9fa';this.style.color='#4a5568';this.style.borderColor='#e2e8f0';this.style.transform='translateY(0)'">晚高峰测速图大比拼：快连 vs IEPL/IPLC 真专线机场，谁才是真稳定？</a>
+            <a href="/article-ecology-observation-2026" title="2026 科学上网生态观察：机场订阅节点与快连 VPN 的路线之争" style="display: inline-block; padding: 6px 14px; background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 20px; font-size: 0.9rem; color: #4a5568; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 1px 2px rgba(0,0,0,0.05);" onmouseover="this.style.background='#ebf4ff';this.style.color='#3182ce';this.style.borderColor='#90cdf4';this.style.transform='translateY(-1px)'" onmouseout="this.style.background='#f8f9fa';this.style.color='#4a5568';this.style.borderColor='#e2e8f0';this.style.transform='translateY(0)'">2026 科学上网生态观察：机场订阅节点与快连 VPN 的路线之争</a>
+            <a href="/article-vpn-selection-guide-2026" title="2026年梯子怎么选：机场VPN协议、内核与机场榜推荐指南" style="display: inline-block; padding: 6px 14px; background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 20px; font-size: 0.9rem; color: #4a5568; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 1px 2px rgba(0,0,0,0.05);" onmouseover="this.style.background='#ebf4ff';this.style.color='#3182ce';this.style.borderColor='#90cdf4';this.style.transform='translateY(-1px)'" onmouseout="this.style.background='#f8f9fa';this.style.color='#4a5568';this.style.borderColor='#e2e8f0';this.style.transform='translateY(0)'">2026年梯子怎么选：机场VPN协议、内核与机场榜推荐指南</a>
+            <a href="/article-backup-vpn-2026" title="备用梯子的绝对神位：为什么 2026 年很多机场用户都会准备一个快连 VPN？" style="display: inline-block; padding: 6px 14px; background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 20px; font-size: 0.9rem; color: #4a5568; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 1px 2px rgba(0,0,0,0.05);" onmouseover="this.style.background='#ebf4ff';this.style.color='#3182ce';this.style.borderColor='#90cdf4';this.style.transform='translateY(-1px)'" onmouseout="this.style.background='#f8f9fa';this.style.color='#4a5568';this.style.borderColor='#e2e8f0';this.style.transform='translateY(0)'">备用梯子的绝对神位：为什么 2026 年很多机场用户都会准备一个快连 VPN？</a>
+            <a href="/article-letsvpn-last-defense-2026" title="快连作为最后防线：2026 年为什么重度机场用户也要准备一个备用 VPN？" style="display: inline-block; padding: 6px 14px; background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 20px; font-size: 0.9rem; color: #4a5568; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 1px 2px rgba(0,0,0,0.05);" onmouseover="this.style.background='#ebf4ff';this.style.color='#3182ce';this.style.borderColor='#90cdf4';this.style.transform='translateY(-1px)'" onmouseout="this.style.background='#f8f9fa';this.style.color='#4a5568';this.style.borderColor='#e2e8f0';this.style.transform='translateY(0)'">快连作为最后防线：2026 年为什么重度机场用户也要准备一个备用 VPN？</a>
+            <a href="/article-auto-daily-2026-06-03-1" title="2026年翻墙机场终极指南：流媒体解锁、专线选择与防封号全攻略" style="display: inline-block; padding: 6px 14px; background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 20px; font-size: 0.9rem; color: #4a5568; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 1px 2px rgba(0,0,0,0.05);" onmouseover="this.style.background='#ebf4ff';this.style.color='#3182ce';this.style.borderColor='#90cdf4';this.style.transform='translateY(-1px)'" onmouseout="this.style.background='#f8f9fa';this.style.color='#4a5568';this.style.borderColor='#e2e8f0';this.style.transform='translateY(0)'">2026年翻墙机场终极指南：流媒体解锁、专线选择与防封号全攻略</a>
+            <a href="/article-payment-risk-2026" title="微信 / 支付宝直接付款的便利与隐私风险：2026 年买机场为什么越来越难？" style="display: inline-block; padding: 6px 14px; background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 20px; font-size: 0.9rem; color: #4a5568; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 1px 2px rgba(0,0,0,0.05);" onmouseover="this.style.background='#ebf4ff';this.style.color='#3182ce';this.style.borderColor='#90cdf4';this.style.transform='translateY(-1px)'" onmouseout="this.style.background='#f8f9fa';this.style.color='#4a5568';this.style.borderColor='#e2e8f0';this.style.transform='translateY(0)'">微信 / 支付宝直接付款的便利与隐私风险：2026 年买机场为什么越来越难？</a>
+        </div>
+    </div>
+</div></div>
+        </div>
+    </section>
+
+
+    <!-- FAQ -->
+    <section id="faq" class="faq section-padding bg-blueish">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-kicker">❓ 旅途问答</p>
+                <h2 class="section-title">常见问题解答</h2>
+                <div class="divider"></div>
+                <p class="section-desc">快速排查，轻松解决上网难题</p>
+            </div>
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header">机场是什么？</div>
+                    <div class="accordion-content">
+                        <p>“机场”是提供代理节点的网络服务的俗称，因早期主流代理软件 Shadowsocks 的图标是纸飞机而得名。机场通过提供配置好的服务器节点，帮助用户突破网络封锁，访问国际互联网。</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">机场和 VPN 有什么区别？</div>
+                    <div class="accordion-content">
+                        <p>传统 VPN 主要为了数据加密和企业内网穿透，协议特征明显，容易被防火墙识别封锁。而“机场”使用的是专门为突破封锁设计的代理协议（如 Shadowsocks, Vmess, Trojan），具备更好的伪装性和更快的速度。</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">机场节点怎么选？</div>
+                    <div class="accordion-content">
+                        <p>建议从以下几个维度选择：1. 线路质量（IPLC专线延迟低，直连适合大带宽需求）；2. 预算；3. 解锁需求（是否需要看 Netflix/Disney+）；4. 商家运营时间（老牌机场更稳定）。可以参考我们的<a href="/article-2026-airport-recommendation-guide" class="text-link">《2026 稳定机场推荐指南》</a>。</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">Clash / Shadowrocket 如何导入订阅？</div>
+                    <div class="accordion-content">
+                        <p>通常步骤是：在机场后台复制“订阅链接” -> 打开客户端 -> 找到“配置/订阅”添加 -> 粘贴链接并更新。具体请查看详细的 <a href="/article-client-tutorials" class="text-link">Clash 教程</a> 和 <a href="/article-client-tutorials" class="text-link">Shadowrocket 教程</a>。</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">节点延迟高、ChatGPT 打不开怎么办？</div>
+                    <div class="accordion-content">
+                        <p>延迟高可能是当前节点拥堵，尝试切换其他地区节点。ChatGPT 无法打开通常是因为该节点的 IP 被 OpenAI 封锁，建议使用原生 IP 节点或开启全局模式尝试，也可参考<a href="/article-chatgpt-troubleshooting" class="text-link">《ChatGPT 打不开怎么办》</a>专项排障指南。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</BaseLayout>
