@@ -4,20 +4,11 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch: # 允许在 GitHub 网页上手动点击运行
-    inputs:
-      force:
-        description: '是否强制运行（忽略重复检查）'
-        required: false
-        default: 'false'
-        type: boolean
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write # 赋予机器人写入仓库的权限，以便推送自动生成的文章
-
     steps:
       - name: 检出代码 (Checkout)
         uses: actions/checkout@v4
@@ -25,40 +16,22 @@ jobs:
       - name: 设置 Node.js 环境
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '22'
 
-      - name: 运行自动写文章脚本
-        env:
-          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
-          FORCE_RUN: ${{ github.event.inputs.force || 'false' }}
-        run: node auto_daily_articles.js
+      - name: 安装项目依赖
+        run: npm install
 
-      - name: 全局图片懒加载与外链 Nofollow 优化 (SEO)
-        run: node optimize_seo_html.js
+      - name: 编译 Astro 网站
+        run: npm run build
 
-      - name: 生成最新站点地图 (Sitemap)
-        run: node generate_sitemap.js
-
-      - name: 提交并推送到 GitHub 仓库
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add .
-          git commit -m "Auto-generate SEO articles and optimize files [skip ci]" || echo "No changes to commit"
-          git push
-
-      - name: 准备上传的生产文件 (Extract)
-        run: node prepare_upload.js
-
-      - name: 🚀 FTP 自动部署至老薛主机
+      - name: 🚀 FTP 自动部署至服务器
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./ready_to_upload/
+          local-dir: ./dist/
           server-dir: /public_html/fanfanqiang.net/
-          # 💡 使用安全 FTPS 传输协议
           protocol: ftps
           security: loose
           timeout: 600000
