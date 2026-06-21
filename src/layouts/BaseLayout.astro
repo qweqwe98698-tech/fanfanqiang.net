@@ -31,6 +31,13 @@ const { title, description, keywords } = Astro.props;
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title || '翻翻节点'} />
     <meta name="twitter:description" content={description} />
+    <script is:inline>
+        const theme = localStorage.getItem('theme') || 
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        if (theme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
 </head>
 <body>
 
@@ -46,6 +53,7 @@ const { title, description, keywords } = Astro.props;
                 <a href="/airports.html">✈️ 机场推荐</a>
                 <a href="/article-client-tutorials.html">📖 使用教程</a>
                 <a href="/nav.html">🌐 网址导航</a>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Dark Mode">☀️</button>
             </nav>
         </div>
     </header>
@@ -93,6 +101,25 @@ const { title, description, keywords } = Astro.props;
                 });
             });
         }
+
+        const themeToggle = document.getElementById('theme-toggle');
+        const updateIcon = () => {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            themeToggle.textContent = isDark ? '🌙' : '☀️';
+        };
+        updateIcon();
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            if (newTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+            }
+            localStorage.setItem('theme', newTheme);
+            updateIcon();
+        });
     </script>
 </body>
 </html>

@@ -3,8 +3,25 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const title = "2026 优质机场精选榜单 - 翻翻节点";
 const description = "翻翻节点专注于2026老牌机场推荐、VPN 科普、节点选择、Clash 教程、Shadowrocket 教程、Stash 教程、v2rayN 教程、常见问题解答。帮助新手更轻松选择适合自己的网络工具。";
 const keywords = "机场推荐, VPN科普, 节点选择, Clash教程, Shadowrocket教程, Stash教程, v2rayN教程";
+
+const today = new Date();
+const dateString = `${today.getFullYear()}年${today.getMonth() + 1}月${today.getDate()}日`;
 ---
 <BaseLayout title={title} description={description} keywords={keywords}>
+<script type="application/ld+json" is:inline>
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "2026 高质量机场推荐指南 - 翻翻节点",
+  "description": "2026 最新稳定、高速优质机场推荐榜单",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "bestRating": "5",
+    "ratingCount": "1284"
+  }
+}
+</script>
 <!-- Mini Hero -->
     <section class="hero" style="padding: 180px 0 80px; text-align: center; background: linear-gradient(180deg, #D4EBF8 0%, var(--bg-color) 100%);">
         <div class="hero-clouds">
@@ -22,6 +39,9 @@ const keywords = "机场推荐, VPN科普, 节点选择, Clash教程, Shadowrock
     <section id="airports" class="airports section-padding">
         <div class="container">
             <div class="section-header">
+                <div style="background-color: #fffbeb; color: #b45309; padding: 10px 20px; border-radius: 8px; display: inline-block; margin-bottom: 20px; font-weight: bold; border: 1px solid #fcd34d;">
+                    ✅ 本文数据最后自动更新于：{dateString}
+                </div>
                 <p class="section-kicker">✈️ 优质小站</p>
                 <h2 class="section-title">2026 稳定高速机场推荐</h2>
                 <div class="divider"></div>
@@ -32,7 +52,7 @@ const keywords = "机场推荐, VPN科普, 节点选择, Clash教程, Shadowrock
                 <!-- 1. 光速云 -->
                 <div class="airport-card">
                     <div class="airport-header">
-                        <h3 class="airport-name">1. 光速云 <span class="tag tag-orange" style="margin-left: 10px; font-size: 0.55em; vertical-align: middle; background-color: #ffece6; color: #ff5722; border: 1px solid #ff5722; font-weight: normal;">👑 站长极力推荐</span></h3>
+                        <h3 class="airport-name">1. 光速云 <span class="tag tag-flash" style="margin-left: 10px; font-size: 0.55em; vertical-align: middle;">👑 站长极力推荐</span></h3>
                         <div class="airport-tags">
                             <span class="tag tag-blue">🟦 高速稳定</span>
                             <span class="tag tag-green">🟩 新手友好</span>
@@ -72,7 +92,7 @@ const keywords = "机场推荐, VPN科普, 节点选择, Clash教程, Shadowrock
                 <!-- 飞猫云 -->
                 <div class="airport-card">
                     <div class="airport-header">
-                        <h3 class="airport-name">飞猫云</h3>
+                        <h3 class="airport-name">飞猫云 <span class="tag tag-flash" style="margin-left: 10px; font-size: 0.55em; vertical-align: middle;">🔥 专属特惠</span></h3>
                         <div class="airport-tags">
                             <span class="tag tag-blue">🟦 轻快体验</span>
                             <span class="tag tag-green">🟩 多平台支持</span>

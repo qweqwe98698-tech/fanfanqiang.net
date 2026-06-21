@@ -19,15 +19,63 @@ const author = frontmatter?.author || '翻翻节点';
             </div>
         </header>
 
-        <div class="article-content">
-            <slot />
-        </div>
+        <div class="article-grid">
+            <div class="article-main">
+                <div class="article-content">
+                    <slot />
+                </div>
 
-        <div style="margin-top: 80px; padding: 40px; background: var(--bg-surface); border-radius: var(--radius-md); border: 1px solid var(--border-color); text-align: center;">
-            <div style="font-size: 3rem; margin-bottom: 16px;">🍅</div>
-            <h3 style="margin-bottom: 12px;">关于作者</h3>
-            <p style="margin-bottom: 0;">这是翻翻节点的原创专栏。我们致力于探索科技与生活的边界，分享有价值的知识与独立思考。</p>
+                <div style="margin-top: 80px; padding: 40px; background: var(--bg-surface); border-radius: var(--radius-md); border: 1px solid var(--border-color); text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 16px;">🍅</div>
+                    <h3 style="margin-bottom: 12px;">关于作者</h3>
+                    <p style="margin-bottom: 0;">这是翻翻节点的原创专栏。我们致力于探索科技与生活的边界，分享有价值的知识与独立思考。</p>
+                </div>
+            </div>
+
+            <aside class="article-sidebar">
+                <div class="toc-container" id="toc-container" style="display: none;">
+                    <div class="toc-title">📑 文章目录</div>
+                    <ul class="toc-list" id="toc-list"></ul>
+                </div>
+                
+                <div class="cta-card">
+                    <h4>强推首选：光速云</h4>
+                    <p>速度最快、延迟最低的优质节点，支持全流媒体解锁，晚高峰秒开 4K！</p>
+                    <a href="https://qwerty.gsyaff.com/#/?code=keqgvT5Y" target="_blank" rel="nofollow noopener" class="btn">🚀 一键免费注册</a>
+                </div>
+            </aside>
         </div>
     </article>
+
+    <script is:inline>
+        document.addEventListener('DOMContentLoaded', () => {
+            const content = document.querySelector('.article-content');
+            if (!content) return;
+            
+            const headings = content.querySelectorAll('h2, h3');
+            const tocContainer = document.getElementById('toc-container');
+            const tocList = document.getElementById('toc-list');
+            
+            if (headings.length > 0) {
+                tocContainer.style.display = 'block';
+                headings.forEach((heading, index) => {
+                    const id = heading.id || `heading-${index}`;
+                    heading.id = id;
+                    
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.href = `#${id}`;
+                    a.textContent = heading.textContent;
+                    
+                    if (heading.tagName.toLowerCase() === 'h3') {
+                        a.classList.add('toc-h3');
+                    }
+                    
+                    li.appendChild(a);
+                    tocList.appendChild(li);
+                });
+            }
+        });
+    </script>
 
 </BaseLayout>
