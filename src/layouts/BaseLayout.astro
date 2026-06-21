@@ -6,9 +6,9 @@ const { title, description, keywords } = Astro.props;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{title || '翻茄笔记 - 原创技术与生活博客'}</title>
-    <meta name="description" content={description || '翻茄笔记，记录技术、生活与思考的原创个人博客。'}>
-    <meta name="keywords" content={keywords || '翻茄笔记, 个人博客, 技术博客, 原创文章'}>
+    <title>{title || '翻翻节点 - 原创技术与生活博客'}</title>
+    <meta name="description" content={description || '翻翻节点，记录技术、生活与思考的原创个人博客。'}>
+    <meta name="keywords" content={keywords || '翻翻节点, 个人博客, 技术博客, 原创文章'}>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,12 +24,12 @@ const { title, description, keywords } = Astro.props;
     <!-- SEO & Social Meta Tags -->
     <link rel="canonical" href={Astro.url} />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content={title || '翻茄笔记'} />
+    <meta property="og:title" content={title || '翻翻节点'} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={Astro.url} />
-    <meta property="og:site_name" content="翻茄笔记" />
+    <meta property="og:site_name" content="翻翻节点" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title || '翻茄笔记'} />
+    <meta name="twitter:title" content={title || '翻翻节点'} />
     <meta name="twitter:description" content={description} />
 </head>
 <body>
@@ -39,7 +39,7 @@ const { title, description, keywords } = Astro.props;
         <div class="container nav-container">
             <a href="/" class="logo">
                 <span class="logo-icon">🍅</span>
-                翻茄笔记
+                翻翻节点
             </a>
             <nav class="nav-links">
                 <a href="/">全部文章</a>
@@ -57,7 +57,7 @@ const { title, description, keywords } = Astro.props;
     <footer class="footer">
         <div class="container footer-container">
             <div class="footer-brand">
-                <h2>🍅 翻茄笔记</h2>
+                <h2>🍅 翻翻节点</h2>
                 <p>探索技术与生活的无限可能。专注原创内容的创作与分享，让每一次阅读都有所收获。</p>
             </div>
             <div class="footer-links">
@@ -72,7 +72,7 @@ const { title, description, keywords } = Astro.props;
 
         </div>
         <div class="container footer-bottom" style="text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px;">
-            <p style="margin: 0;">&copy; 2026 fanfanqiang.net 翻茄笔记. All Rights Reserved. Crafted with passion.</p>
+            <p style="margin: 0;">&copy; 2026 fanfanqiang.net 翻翻节点. All Rights Reserved. Crafted with passion.</p>
             <div style="font-size: 0.85rem; color: #64748B; display: flex; align-items: center; gap: 15px; flex-wrap: wrap; justify-content: center;">
                 <span>✨ 推荐阅读：</span>
                 <a href="https://airporthub.pro/" target="_blank" rel="dofollow noopener" style="color: #94A3B8; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#FF5E3A'" onmouseout="this.style.color='#94A3B8'">机场推荐科学上网教程</a>

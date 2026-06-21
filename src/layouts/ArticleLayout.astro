@@ -5,7 +5,7 @@ const title = frontmatter?.title || Astro.props.title || '';
 const description = frontmatter?.description || Astro.props.description || '';
 const keywords = frontmatter?.keywords || Astro.props.keywords || '';
 const pubDate = frontmatter?.pubDate ? new Date(frontmatter.pubDate).toISOString().split('T')[0] : '';
-const author = frontmatter?.author || '翻茄笔记';
+const author = frontmatter?.author || '翻翻节点';
 ---
 <BaseLayout title={title} description={description} keywords={keywords}>
     
@@ -26,7 +26,7 @@ const author = frontmatter?.author || '翻茄笔记';
         <div style="margin-top: 80px; padding: 40px; background: var(--bg-surface); border-radius: var(--radius-md); border: 1px solid var(--border-color); text-align: center;">
             <div style="font-size: 3rem; margin-bottom: 16px;">🍅</div>
             <h3 style="margin-bottom: 12px;">关于作者</h3>
-            <p style="margin-bottom: 0;">这是翻茄笔记的原创专栏。我们致力于探索科技与生活的边界，分享有价值的知识与独立思考。</p>
+            <p style="margin-bottom: 0;">这是翻翻节点的原创专栏。我们致力于探索科技与生活的边界，分享有价值的知识与独立思考。</p>
         </div>
     </article>
 
