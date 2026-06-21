@@ -4,27 +4,30 @@ const { frontmatter } = Astro.props;
 const title = frontmatter?.title || Astro.props.title || '';
 const description = frontmatter?.description || Astro.props.description || '';
 const keywords = frontmatter?.keywords || Astro.props.keywords || '';
-const subtitle = frontmatter?.subtitle || Astro.props.subtitle || '';
+const pubDate = frontmatter?.pubDate ? new Date(frontmatter.pubDate).toISOString().split('T')[0] : '';
+const author = frontmatter?.author || '翻茄笔记';
 ---
 <BaseLayout title={title} description={description} keywords={keywords}>
-    <!-- Mini Hero -->
-    <section class="hero" style="padding: 180px 0 80px; text-align: center; background: linear-gradient(180deg, #D4EBF8 0%, var(--bg-color) 100%);">
-        <div class="hero-clouds">
-            <div class="cloud cloud-1"></div>
-            <div class="cloud cloud-2"></div>
-        </div>
-        <div class="container relative" style="z-index: 2;">
-            <h1 class="hero-title" style="margin-bottom:15px;">{title}</h1>
-            {subtitle && <p class="hero-subtitle" style="margin-bottom:0;">{subtitle}</p>}
-        </div>
-        <div class="hero-grass"></div>
-    </section>
     
-    <section class="article-page section-padding">
-        <div class="container" style="max-width: 900px; margin: 0 auto; background: #fff; padding: 50px 60px; border-radius: 20px; border: 2px solid var(--border-color); box-shadow: var(--shadow);">
-            <div class="article-body">
-                <slot />
+    <article class="article-layout">
+        <header class="article-header">
+            <h1 class="article-title">{title}</h1>
+            <div class="article-info">
+                <span>✍️ {author}</span>
+                {pubDate && <span>📅 {pubDate}</span>}
+                <span>⏱️ 预计阅读时间: 5 分钟</span>
             </div>
+        </header>
+
+        <div class="article-content">
+            <slot />
         </div>
-    </section>
+
+        <div style="margin-top: 80px; padding: 40px; background: var(--bg-surface); border-radius: var(--radius-md); border: 1px solid var(--border-color); text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: 16px;">🍅</div>
+            <h3 style="margin-bottom: 12px;">关于作者</h3>
+            <p style="margin-bottom: 0;">这是翻茄笔记的原创专栏。我们致力于探索科技与生活的边界，分享有价值的知识与独立思考。</p>
+        </div>
+    </article>
+
 </BaseLayout>
